@@ -1,0 +1,89 @@
+\documentclass[10pt]{scrartcl}
+\usepackage{fullpage,psfrag,amsmath,amsfonts,verbatim,mathtools}
+\usepackage{bookman}
+\usepackage[small,bf]{caption}
+\usepackage{enumitem}
+\usepackage{xfrac}
+\usepackage{commath}
+
+\newenvironment{sysmatrix}[1]
+ {\left[\begin{array}{@{}#1@{}}}
+ {\end{array}\right]}
+\newcommand{\ro}[1]{%
+  \xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}
+\AtBeginDocument{\setlength{\rowidth}{3em}}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+
+\newcommand{\ones}{\mathbf 1}
+\newcommand{\reals}{{\mbox{\bf R}}}
+\newcommand{\integers}{{\mbox{\bf Z}}}
+\newcommand{\symm}{{\mbox{\bf S}}} 
+
+\newcommand{\nullspace}{{\mathcal N}}
+\newcommand{\range}{{\mathcal R}}
+\newcommand{\Rank}{\mathop{\bf Rank}}
+\newcommand{\Tr}{\mathop{\bf Tr}}
+\newcommand{\diag}{\mathop{\bf diag}}
+\newcommand{\card}{\mathop{\bf card}}
+\newcommand{\proj}{\mathop{\mathbf Proj}}
+\newcommand{\rank}{\mathop{\bf rank}}
+\newcommand{\conv}{\mathop{\bf conv}}
+\newcommand{\zero}{\mathop{\bf 0}}
+\newcommand{\prox}{\mathbf{prox}}
+
+\newcommand{\Expect}{\mathop{\bf E{}}}
+\newcommand{\Prob}{\mathop{\bf Prob}}
+\newcommand{\Co}{{\mathop {\bf Co}}} 
+\newcommand{\dist}{\mathop{\bf dist{}}}
+\newcommand{\argmin}{\mathop{\rm argmin}}
+\newcommand{\argmax}{\mathop{\rm argmax}}
+\newcommand{\epi}{\mathop{\bf epi}} 
+\newcommand{\Vol}{\mathop{\bf vol}}
+\newcommand{\dom}{\mathop{\bf dom}} 
+\newcommand{\intr}{\mathop{\bf int}}
+\newcommand{\sign}{\mathop{\bf sign}}
+
+\newcommand{\cf}{{\it cf.}}
+\newcommand{\eg}{{\it e.g.}}
+\newcommand{\ie}{{\it i.e.}}
+\newcommand{\etc}{{\it etc.}}
+\bibliographystyle{alpha}
+
+\title{Homework y for MATH 312}
+\author{Ashok M. Rao}
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble}
+
+\paragraph{Log det} Using the cofactor expansion on any fixed row $i$ of $A$, the determinant is
+\[\det{A} = \sum_{j=1}^{n} A_{ij} C_{ij}\]
+where $C_{ij}$ is the cofactor matrix, that is $C_{ij} = (-1)^{i+j}\det{M_{ij}}$ in which $M_{ij}$ is the $(n-1)x(n-1)$ the $(i,j)$ minor of $A$. To find the gradient of $\log\det{A}$ apply the chain rule on this definition,
+\begin{align*}
+	\nabla(\log\det{A}) &= (\det{A})^{-1}\left(\nabla A_{j} C_{j}\right)_{i}  \\
+	&= (\det{A})^{-1}\cdot C_{ij} = A^{-1}_{ji}\quad\text{(for $i,j = 1,\dots, n$)}
+\end{align*}
+The first and second equalities consider the vector gradient of $\log{x}$ before concluding the result using Cramer's rule. 
+
+\paragraph{Strang 6.1.27}
+Clearly $\rank{A} = 1$. The expansion in $\det{A-\lambda I}$ produces only one non-zero cofactor on each row or column, since $\rank{M_{ij}} < \rank{M_{ii}}$ for $i\neq j$. This applies inductively, so 
+\[ \lambda^{3}(\lambda - 4) = 0,\quad\lambda = 0,0,0,4\] 
+$C$ has two independent rows and columns spanning $\mathbb{R}^{2}\subseteq \mathbb{R}^{4}$. Given that $\Tr{C} = 4$ and $C(1,1,1,1) = 2(1,1,1,1)$, it follows that $\lambda_1 = 2$ and because the eigenvalues sum to the trace, $\lambda_2 = 2$. (The other eigenvalues are zero since $\rank{C} = 2 < 4$. 
+
+\paragraph{Strang 6.1.2} 
+Since $A+I$ is singular, we automatically have $\lambda_1 = -1$ for the eigenvector $(2,-1)$. This gives that $\lambda_2 = 5$ (since the product of eigenvalues is the determinant) and the associated eigenvector $(1,1)$. Adding the identity preserves the eigenvectors by definition $(A+I)x = Ax + x = (\lambda+1)x$, which holds generally. Therefore we have, for $A+I$, $\lambda=0,6$ with the same eigenvectors. 
+
+\paragraph{Change of polynomial basis} Let $\mathcal{P}$ and $\mathcal{P}'$ be the polynomial bases given by,
+\[\mathcal{P} = \left\{\begin{bmatrix}x^2\\0\\0\end{bmatrix},\begin{bmatrix}0\\x\\0\end{bmatrix},\begin{bmatrix}0\\0\\1\end{bmatrix}\right\},\quad
+\mathcal{P}' = \left\{\frac{1}{2}\begin{bmatrix} x^2\\ x\\0\end{bmatrix},\begin{bmatrix}x^2\\0\\-1\end{bmatrix},\begin{bmatrix}0\\0\\3\end{bmatrix}\right\}\] The change of basis into the $v$'s is simply the underlying matrix $W$ with $V = W^{-1}$ sending the coordinates back to the $w$'s that is,
+\[W = \begin{bmatrix}1/2& 1& 0\\ 1/2& 0& 0\\ 0& -1& 3\end{bmatrix},\quad W^{-1}=\begin{bmatrix}0& 2& 0\\ 1& -1& 0\\ 1/3& -1/3& 1\end{bmatrix} \]
+
+
+\paragraph{Linear transformations} I will use $W$ as basis for the space of $2x2$ matrices:
+\[W = \left\{\begin{bmatrix}1&0\\0&0\end{bmatrix},\begin{bmatrix}0&1\\0&0\end{bmatrix},\begin{bmatrix}0&0\\1&0\end{bmatrix},\begin{bmatrix}0&0\\0&1\end{bmatrix}\right\}\]
+Generally $e_{ij}$ representing the all zeros matrix except one at $(i,j)$. We want to describe the matrix form of the transformation $T(A) = A^T + 2A$,
+\[T = \begin{bmatrix}2&0& 0& 0\\0&0&2&0\\0&2&0&0\\0&0&0&2\end{bmatrix}\]
+The range and domain of $T_1$ are $4x1$ vectors which we understand as corresponding to the basis $W$ matrices in the row-major ordering. Both by definition of $T(A)$ and inspection of the matrix thereof it is clear that $\nullspace{(T)} = 0$.
+\end{document}

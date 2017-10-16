@@ -1,0 +1,91 @@
+\documentclass[10pt]{scrartcl}
+\usepackage{fullpage,psfrag,amsmath,amsfonts,verbatim,mathtools}
+\usepackage{bookman}
+\usepackage[small,bf]{caption}
+\usepackage{enumitem}
+\usepackage{xfrac}
+\usepackage{commath}
+
+\newenvironment{sysmatrix}[1]
+ {\left[\begin{array}{@{}#1@{}}}
+ {\end{array}\right]}
+\newcommand{\ro}[1]{%
+  \xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}
+\AtBeginDocument{\setlength{\rowidth}{3em}}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+
+\newcommand{\ones}{\mathbf 1}
+\newcommand{\reals}{{\mbox{\bf R}}}
+\newcommand{\integers}{{\mbox{\bf Z}}}
+\newcommand{\symm}{{\mbox{\bf S}}} 
+
+\newcommand{\nullspace}{{\mathcal N}}
+\newcommand{\range}{{\mathcal R}}
+\newcommand{\Rank}{\mathop{\bf Rank}}
+\newcommand{\Tr}{\mathop{\bf Tr}}
+\newcommand{\diag}{\mathop{\bf diag}}
+\newcommand{\card}{\mathop{\bf card}}
+\newcommand{\proj}{\mathop{\mathbf Proj}}
+\newcommand{\rank}{\mathop{\bf rank}}
+\newcommand{\conv}{\mathop{\bf conv}}
+\newcommand{\zero}{\mathop{\bf 0}}
+\newcommand{\prox}{\mathbf{prox}}
+
+\newcommand{\Expect}{\mathop{\bf E{}}}
+\newcommand{\Prob}{\mathop{\bf Prob}}
+\newcommand{\Co}{{\mathop {\bf Co}}} 
+\newcommand{\dist}{\mathop{\bf dist{}}}
+\newcommand{\argmin}{\mathop{\rm argmin}}
+\newcommand{\argmax}{\mathop{\rm argmax}}
+\newcommand{\epi}{\mathop{\bf epi}} 
+\newcommand{\Vol}{\mathop{\bf vol}}
+\newcommand{\dom}{\mathop{\bf dom}} 
+\newcommand{\intr}{\mathop{\bf int}}
+\newcommand{\sign}{\mathop{\bf sign}}
+
+\newcommand{\cf}{{\it cf.}}
+\newcommand{\eg}{{\it e.g.}}
+\newcommand{\ie}{{\it i.e.}}
+\newcommand{\etc}{{\it etc.}}
+\bibliographystyle{alpha}
+
+\title{Homework 8 for MATH 312}
+\author{Ashok M. Rao}
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble}
+
+\paragraph{6.2.15} A diagonalizable $A^k$ approaches the zero matrix if and only if every eigenvalue satisfies $-1<\lambda_i<1$. The columns of $A_1$ sum to 1 so it is Markov and has at least one eigenvalue $\lambda=1$. $A_2$ is like a Markov chain without full probability, so we can guess that it's bound to disappear and this is seen by the eigenvalues as well: the characteristic function gives $(\lambda-0.6)^2 = 0.09$ and so the eigenvalues have absolute value below one, and $A_{2}^{\infty}\to 0$.
+
+\paragraph{6.2.18} The eigenvalues for this $A$ are the roots of \[\det{(A-\lambda I)}= \lambda^2 - 4\lambda +3\] so $\lambda=1,3$.
+By inspection, the eigenvector corresponding to $\lambda=1$ is $x_1 = (1,1)$ and the eigenvector corresponding to $\lambda=3$ is $x_2=(1,-1)$. This gives,
+\[A^k = \frac{1}{2}\begin{bmatrix}1&1\\1&-1\end{bmatrix}\begin{bmatrix}1&0\\0&3^k\end{bmatrix}\begin{bmatrix}1&1\\1&-1\end{bmatrix}\]
+with $k=1$ giving the diagonalization.
+
+\paragraph{Strang 6.2.34} A is the rotation matrix so we have
+\begin{align} 
+\det{(A-\lambda I)} &= \lambda^2 - 2\lambda\cos{\theta} + (\cos^2{\theta} + \sin^2{\theta})\\
+	&= \lambda^2 - 2\lambda\cos{\theta} + 1\\
+	&= (\lambda - \cos{\theta})^2 + \sin^2{\theta}
+\end{align}
+So completing the square gives two roots: $\lambda = \cos{\theta}\pm i\sin{\theta}$.To find the eigenvectors see that in $(A-\lambda I)$ only the imaginary term is left on the diagonal. For $\lambda_1=\cos{\theta}+i\sin{\theta}$ multiplying the right column by $-i$ eliminates the left. For the conjugate $\lambda_2$, multiplying the same column by $i$ works. Thus we have,
+\[A^{n} = \frac{1}{2i}\begin{bmatrix}1&1\\-i& i\end{bmatrix}\begin{bmatrix}\text{cis}(\theta)&0\\0&\text{cis}(-\theta)\end{bmatrix}^n\begin{bmatrix}i&-1\\i&1\end{bmatrix}=\begin{bmatrix}\cos{n\theta}& -\sin{n\theta}\\ \sin{n\theta}& \cos{n\theta}\end{bmatrix}\]
+This uses the fact that $\cos{\theta}$ is even and $\sin{\theta}$ is odd so $\text{cis}(-\theta)$ returns the conjugate.  
+
+\paragraph{Eigenvectors of ``nearly symmetric" matrices} The given matrix has the characteristic polynomial
+\[\det{(A-\lambda I)} = \lambda^2 -(2+\epsilon)\lambda + (\epsilon+1) \implies (\lambda-1)^2 = (\lambda-1)\epsilon\]
+so we have $\lambda=1,\epsilon+1$ as the two eigenvalues. These correspondingly give the eigenvectors $(1,0)$ and $(1,1)$. The angle between these vectors is $\cos^{-1}\left(\frac{1}{\sqrt{2}}\right)=45\text{ degrees}$, which is not orthogonal. 
+
+\paragraph{6.4.13}
+Using the characteristic equations for $S$ and $B$,
+\[\det{(S - \lambda I)}=(\lambda-4)(\lambda-2),\quad \det{(B-\lambda I)}=\lambda(\lambda-25)\]
+it is clear that $S$ has eigenvectors $(1,1)$ and $(-1,1)$ for $\lambda=4,2$ respectively and similarly that $B$ has eigenvectors $(3,4)$ and $(-4,3)$ for $\lambda=25,0$. Thus,
+\[S = (4/2)(1,1)(1,1)^T+(2/2)(-1,1)(-1,1)^T,\quad
+B = (25/25)(3,4)(3,4)^T\]
+The fractional coefficients are left unsimplified to highlight the distinction between the eigenvalue numerators and normalizing denominators (the eigenvector corresponding with the zero eigenvalue for $B$ is removed). This gives the $Q\Lambda Q^{T}$ form of $S$ and $B$ since the eigenvectors are orthogonal and may be added as shown to recompose into the original matrix. Since $Q$ is symmetric we use that $QQ^T = I$. 
+
+
+\end{document}

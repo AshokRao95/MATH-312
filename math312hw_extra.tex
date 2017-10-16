@@ -1,0 +1,108 @@
+\documentclass[10pt]{article}
+\usepackage{fullpage,graphicx,psfrag,amsmath,amsfonts,verbatim,mathtools}
+\usepackage[small,bf]{caption}
+\usepackage{enumitem}
+\usepackage{xfrac}
+
+\newenvironment{sysmatrix}[1]
+ {\left[\begin{array}{@{}#1@{}}}
+ {\end{array}\right]}
+\newcommand{\ro}[1]{%
+  \xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}
+\AtBeginDocument{\setlength{\rowidth}{3em}}
+
+\newcommand{\ones}{\mathbf 1}
+\newcommand{\reals}{{\mbox{\bf R}}}
+\newcommand{\integers}{{\mbox{\bf Z}}}
+\newcommand{\symm}{{\mbox{\bf S}}} 
+
+\newcommand{\nullspace}{{\mathcal N}}
+\newcommand{\range}{{\mathcal R}}
+\newcommand{\Rank}{\mathop{\bf Rank}}
+\newcommand{\Tr}{\mathop{\bf Tr}}
+\newcommand{\diag}{\mathop{\bf diag}}
+\newcommand{\card}{\mathop{\bf card}}
+\newcommand{\proj}{\mathop{\bf Proj}}
+\newcommand{\rank}{\mathop{\bf rank}}
+\newcommand{\conv}{\mathop{\bf conv}}
+\newcommand{\zero}{\mathop{\bf 0}}
+\newcommand{\prox}{\mathbf{prox}}
+
+\newcommand{\Expect}{\mathop{\bf E{}}}
+\newcommand{\Prob}{\mathop{\bf Prob}}
+\newcommand{\Co}{{\mathop {\bf Co}}} 
+\newcommand{\dist}{\mathop{\bf dist{}}}
+\newcommand{\argmin}{\mathop{\rm argmin}}
+\newcommand{\argmax}{\mathop{\rm argmax}}
+\newcommand{\epi}{\mathop{\bf epi}} 
+\newcommand{\Vol}{\mathop{\bf vol}}
+\newcommand{\dom}{\mathop{\bf dom}} 
+\newcommand{\intr}{\mathop{\bf int}}
+\newcommand{\sign}{\mathop{\bf sign}}
+
+\newcommand{\cf}{{\it cf.}}
+\newcommand{\eg}{{\it e.g.}}
+\newcommand{\ie}{{\it i.e.}}
+\newcommand{\etc}{{\it etc.}}
+\bibliographystyle{alpha}
+
+\title{Optional Homework for MATH 312}
+\author{Ashok M. Rao}
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble}
+
+\paragraph{Strang 4.1.10} The nullspace of a matrix is the orthogonal complement of its row space, $\eg N(A) \bot C(A^T)$. For symmetric matrices $A = A^{T}$ this also implies that $N(A) \bot C(A)$. By implication, if $Ax = 0$ and $Az = 5z$, then $x\in N(A)$ and $z\in C(A^T)$, so $x^T z = 0$.
+
+\paragraph{Strang 4.2.13} The projection matrix $P$ associated with $A = \begin{bmatrix}1& 0& 0\\0& 1& 0\\0& 0& 1\\0& 0& 0\end{bmatrix}$ brings an $x\in \reals^4$ to $\reals^3$ so
+\[\proj (b) = \begin{bmatrix}1& 0& 0& 0\\0& 1& 0& 0\\0& 0& 1& 0\\0& 0& 0& 0\end{bmatrix}\begin{bmatrix}1\\2\\3\\4\end{bmatrix} = \begin{bmatrix}1& 2& 3& 0\end{bmatrix}^T\]
+
+\paragraph{Strang 4.2.17} Since $P = PP$,
+\[(I - P)^2 = I^2 + P^2 - 2PI = I-P\]
+For some matrix $A$, any vector $b$ is a combination of $x_p\in C(A)$ and $x_n\in N(A^T)$, that is $b = x_p + x_n$. So we have $(I-P)b = x_n - P x_n = (I-P) x_n$. In words, $(I-P)$ projects $b$ onto the left nullspace $N(A^T)$.
+
+\paragraph{Strang 4.3.17} We need to fit the data,
+\[\begin{bmatrix}7\\7\\21\end{bmatrix} = \begin{bmatrix}1&1&1\\t_1&t_2&t_3\end{bmatrix}^T\begin{bmatrix}C\\D\end{bmatrix}\] Now to compute the estimator, we calculate $\hat{\beta}=X(X^T X)^{-1}X^T y$,
+\begin{align*}
+	(X^T X)^{-1}X^T&= \left(\begin{bmatrix}1&1&1\\-1&1&2\end{bmatrix} \begin{bmatrix}1&-1\\1&1\\1&2\end{bmatrix}\right)^{-1}\cdot\begin{bmatrix}1&1&1\\-1&1&2\end{bmatrix}\\
+	&= \frac{1}{14}\begin{bmatrix}6& -2\\-2& 3\end{bmatrix}\begin{bmatrix}1&1&1\\-1&1&2\end{bmatrix}\\
+	&= \frac{1}{14}\begin{bmatrix}8& 4& 2\\ -5& 1& 4\end{bmatrix}
+\end{align*}
+Applying this to $y$ gives,
+\begin{align*}
+	\hat{\beta} = \frac{1}{14}\begin{bmatrix}8& 4& 2\\ -5& 1& 4\end{bmatrix}\begin{bmatrix}7\\7\\21\end{bmatrix} = \begin{bmatrix}9\\4\end{bmatrix}
+\end{align*}
+So $C=9$ and $D=4$. Therefore the least square solutions $(\hat{t},\hat{b})$ are $(-1, 5), (1,13),$ and $(2,17)$. This fit and the data are plotted in Figure 1 overleaf.
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.6\textwidth]{ols.png}
+\end{center}
+\caption{OLS fit for Strang 4.3.17}
+\end{figure}
+
+
+\paragraph{Strang 4.4.21} First obtain $A^T A$ (since we care about the column space) and then implement the Gram-Schmidt process by performing elimination as follows:
+\begin{align*}
+	[A^T A\mid A^T] &= \begin{sysmatrix}{rr|rrrr}
+		4&2&1&1&1&1\\2&14&-2&0&1&3
+	\end{sysmatrix}\\
+	&\rightarrow 
+	\begin{sysmatrix}{rr|rrrr}
+		1&\sfrac{1}{2}&\sfrac{1}{4}&\sfrac{1}{4}&\sfrac{1}{4}&\sfrac{1}{4}\\
+		0&13&-\sfrac{5}{2}&-\sfrac{1}{2}&\sfrac{1}{2}&\sfrac{5}{2}
+	\end{sysmatrix}\\
+	&\rightarrow
+	\begin{sysmatrix}{rr|rrrr}
+		1&\sfrac{1}{2}&\sfrac{1}{4}&\sfrac{1}{4}&\sfrac{1}{4}&\sfrac{1}{4}\\
+		0&1&-\sfrac{5}{26}&-\sfrac{1}{26}&\sfrac{1}{26}&\sfrac{5}{26}
+	\end{sysmatrix}
+\end{align*}
+Normalizing, this yields
+\[e_1 = \frac{1}{2}(1,1,1,1),\quad e_2=\frac{1}{\sqrt{52}}(-5,-1,1,5)\]
+Now obtain the projection,
+\[\proj{(b)} = (e_{1}^{T} b) e_{1} + (e_{2}^{T} b) e_{2} = (-1/2)(7,3,1,-3)\]
+Both the basis vectors are clearly orthonormal. Further the part of the vector excluding the projection, $\eg$  $b-\proj{(b)}$ is also orthogonal to the basis.
+\end{document}

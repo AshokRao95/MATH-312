@@ -1,0 +1,108 @@
+\documentclass[10pt]{scrartcl}
+\usepackage{fullpage,psfrag,amsmath,amsfonts,verbatim,mathtools}
+\usepackage{bookman}
+\usepackage[small,bf]{caption}
+\usepackage{enumitem}
+\usepackage{xfrac}
+\usepackage{commath}
+
+\newenvironment{sysmatrix}[1]
+ {\left[\begin{array}{@{}#1@{}}}
+ {\end{array}\right]}
+\newcommand{\ro}[1]{%
+  \xrightarrow{\mathmakebox[\rowidth]{#1}}%
+}
+\newlength{\rowidth}
+\AtBeginDocument{\setlength{\rowidth}{3em}}
+
+\newcommand{\ones}{\mathbf 1}
+\newcommand{\reals}{{\mbox{\bf R}}}
+\newcommand{\integers}{{\mbox{\bf Z}}}
+\newcommand{\symm}{{\mbox{\bf S}}} 
+
+\newcommand{\nullspace}{{\mathcal N}}
+\newcommand{\range}{{\mathcal R}}
+\newcommand{\Rank}{\mathop{\bf Rank}}
+\newcommand{\Tr}{\mathop{\bf Tr}}
+\newcommand{\diag}{\mathop{\bf diag}}
+\newcommand{\card}{\mathop{\bf card}}
+\newcommand{\proj}{\mathop{\bf Proj}}
+\newcommand{\rank}{\mathop{\bf rank}}
+\newcommand{\conv}{\mathop{\bf conv}}
+\newcommand{\zero}{\mathop{\bf 0}}
+\newcommand{\prox}{\mathbf{prox}}
+
+\newcommand{\Expect}{\mathop{\bf E{}}}
+\newcommand{\Prob}{\mathop{\bf Prob}}
+\newcommand{\Co}{{\mathop {\bf Co}}} 
+\newcommand{\dist}{\mathop{\bf dist{}}}
+\newcommand{\argmin}{\mathop{\rm argmin}}
+\newcommand{\argmax}{\mathop{\rm argmax}}
+\newcommand{\epi}{\mathop{\bf epi}} 
+\newcommand{\Vol}{\mathop{\bf vol}}
+\newcommand{\dom}{\mathop{\bf dom}} 
+\newcommand{\intr}{\mathop{\bf int}}
+\newcommand{\sign}{\mathop{\bf sign}}
+
+\newcommand{\cf}{{\it cf.}}
+\newcommand{\eg}{{\it e.g.}}
+\newcommand{\ie}{{\it i.e.}}
+\newcommand{\etc}{{\it etc.}}
+\bibliographystyle{alpha}
+
+\title{Homework 6 for MATH 312}
+\author{Ashok M. Rao}
+
+\begin{document}
+\maketitle
+\pagenumbering{gobble}
+
+\paragraph{Strang 5.1.9} The first matrix is two row exchanges away from the identity so $\det{A} = 1$. Next, $\det{B} = 2$ since the second and third rows can be added to the top row resulting in the all twos vector; factoring this and subtracting the top row from the bottom gives the determinant as a product of the diagonal. The final matrix is not invertible and so $\det{C}=0$. 
+
+\paragraph{Strang 5.1.13} Row and column exchanges preserve the determinant so respectively,
+\[\det{A}=\begin{vmatrix}
+1& 1& 1\\
+1& 2& 2\\
+1& 2& 3\end{vmatrix} =
+\begin{vmatrix}
+1& 1& 1\\
+0& 1& 1\\
+0& 0& 1\end{vmatrix} = 1,\quad 
+\det{B}=\begin{vmatrix}
+1& 2& 3\\
+2& 2& 3\\
+3& 3& 3\end{vmatrix} =
+\begin{vmatrix}
+1& 3& 2\\
+0& 3& 2\\
+0& 0& 1\end{vmatrix}=3\]
+where the final value is the product of pivots on the diagonal.
+
+\paragraph{Strang 5.1.26} For any matrix where $A_{ij} = i+j$, row operations reveal,
+\[A_{i+1} - A_{i} = (1,\dots,1)\implies A_{i+1} = A_i + (A_i - A_{i-1})\] This indicates linear dependence for $i>2$ and accordingly that the determinant is zero.
+
+\paragraph{Strang 5.2.20} $G_n$ is the $n\times n$ all ones matrix but with zeros on the diagonal. The determinants $\det{G_2} = -1$ and $\det{G_3} = 2$, respectively by inspection and from the first problem. The solution for $\det{G_4}=-3$ illustrates the general principle,
+\[
+\begin{vmatrix}
+	0& 1& 1& 1\\
+	1& 0& 1& 1\\
+	1& 1& 0& 1\\
+	1& 1& 1& 0
+\end{vmatrix} = 
+\begin{vmatrix}
+	3& 3& 3& 3\\
+	1& 0& 1& 1\\
+	1& 1& 0& 1\\
+	1& 1& 1& 0
+\end{vmatrix} = 
+3\begin{vmatrix}
+	1& 1& 1& 1\\
+	0& -1&0& 0\\
+	0& 0& -1& 0\\
+	0& 0& 0& -1
+\end{vmatrix}
+\]
+Adding each row to the top row yields the all ones vector after a factor of $(n-1)$. Subtracting this row to all others results in the minor $M_{11}=-\det{I}$ so that, generally, $\det{G_n} = (-1)^{n-1}(n-1)$.
+
+\paragraph{Strang 5.2.34} The given matrix has dependent rows because the final three rows span a plane $\mathbb{R}^{2}\subseteq \mathbb{R}^{5}$ and so at least one row can be eliminated to zero. Each permutation of columns in the ``big formula" is associated with a product that must include zero, by the pigeonhole principle. Equivalently, any row or column exchange leaves at least one zero on the diagonal such that the determinant cannot be but zero.
+\end{document}
